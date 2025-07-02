@@ -1,0 +1,119 @@
+{% extends 'admins/adminbase.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .container {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 900px; /* Adjust width as needed */
+        margin: 20px auto; /* Center horizontally with spacing */
+    }
+
+    .table {
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table thead {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn-danger {
+        background-color: #e53935;
+        border-color: #e53935;
+        margin-right: 5px;
+    }
+
+    .btn-danger:hover {
+        background-color: #d32f2f;
+        border-color: #d32f2f;
+    }
+
+    .btn-success {
+        background-color: #4CAF50;
+        border-color: #4CAF50;
+        margin-right: 5px;
+    }
+
+    .btn-success:hover {
+        background-color: #45a049;
+        border-color: #45a049;
+    }
+
+    .text-center {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    /* Remove excessive white space */
+    body {
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .content-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container">
+        <h1 class="text-center">View Users</h1>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">S.NO</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in register %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.status }}</td>
+                    <td>
+                        {% if user.status == 'Waiting' %}
+                        <a href="{% url 'activate' user.id %}" class="btn btn-success btn-sm">Activate</a>
+                        {% else %}
+                        <a href="{% url 'blockuser' user.id %}" class="btn btn-danger btn-sm">Block</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+/* Center the form on the page */
+form {
+  width: 300px;
+  margin: auto;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+/* Style the container */
+.container {
+  padding: 16px;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Style the "Login" button */
+button[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+button[type=submit]:hover {
+  background-color: #45a049;
+}
+
+/* Style the "Cancel" button */
+.cancelbtn {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancelbtn:hover {
+  background-color: #e53935;
+}
+
+/* Add a gray background color to the container for the Cancel button */
+.container.bg {
+  background-color: #f1f1f1;
+  padding: 16px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Add padding to the image container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Style the avatar image */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Responsive layout - making the form fit better on smaller screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn {
+    width: 100%;
+  }
+}
+</style>
+
+<form action="{% url 'adminlogin' %}" method="post">
+
+  {% if messages %}
+  {% for message in messages %}
+  <strong> <p style="color: red;">{{message}}</p></strong>
+  {% endfor %}
+  {% endif %}
+
+  {% csrf_token %}
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+  
+      <button type="submit">Login</button>
+     
+    </div>
+</form>
+{% endblock %}

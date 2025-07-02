@@ -1,0 +1,81 @@
+{% extends 'users/userbase.html' %}
+{% block content %}
+<style>
+    /* Add glow effect for the card */
+    .glow-card {
+        box-shadow: 0 0 15px rgba(0, 150, 250, 0.8);
+        transition: box-shadow 0.3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .glow-card:hover {
+        box-shadow: 0 0 25px rgba(0, 150, 250, 1);
+    }
+
+    .table-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Center text inside table */
+    .table {
+        width: 60%; /* Adjust width as needed */
+    }
+
+    .table th, .table td {
+        text-align: center; /* Ensures text is centered */
+        vertical-align: middle; /* Centers vertically */
+    }
+
+    /* Style for better table appearance */
+    .table th {
+        background-color: #007BFF;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Card title styling */
+    .card-title {
+        font-weight: bold;
+        font-size: 24px;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Bootstrap Card with Glow Effect -->
+            <div class="card glow-card p-4">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Training Results</h1>
+
+                    {% if accuracies %}
+                        <div class="table-container">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Model</th>
+                                        <th class="text-center">Accuracy (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for model, acc in accuracies.items %}
+                                        <tr>
+                                            <td class="text-center">{{ model }}</td>
+                                            <td class="text-center">{{ acc }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-danger">No training results available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

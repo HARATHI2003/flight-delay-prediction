@@ -1,0 +1,46 @@
+{% extends 'users/userbase.html' %}
+{% block contents %}
+
+<style>
+    #intro {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .intro-text h3 {
+        color: rgb(213, 18, 18);
+        font-weight: bold;
+    }
+
+    .content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: justify;
+        padding: 20px;
+        line-height: 1.6;
+    }
+</style>
+
+<section id="intro">
+    <div class="intro-text">
+        <h3>Welcome To User HomePage</h3>
+    </div>
+</section>
+
+<div class="content">
+    <p>
+        Flight delays critically impact passengers, airlines, and the economies of affected regions. 
+        We aimed to predict flight delays by developing a structured prediction system that utilizes 
+        flight data to forecast departure delays accurately. This project involved a comprehensive 
+        analysis of various machine learning methods, utilizing a dataset containing flight information.
+    </p>
+
+    <p>
+        The primary focus was on extracting valuable insights from this extensive dataset to accurately 
+        predict flight delays. By conducting thorough assessments and comparative analyses, we evaluated 
+        different methods for their effectiveness in predicting delays. These insights aim to help airlines 
+        improve flight planning, minimize delays, and enhance passenger experience.
+    </p>
+</div>
+
+{% endblock %}

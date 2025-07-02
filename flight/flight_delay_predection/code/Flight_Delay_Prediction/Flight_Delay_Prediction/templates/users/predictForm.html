@@ -1,0 +1,136 @@
+{% extends 'users/userbase.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Delay Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('your-image-url.jpg'); /* Replace with your actual image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.9); /* Light transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        .output-container {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Flight Delay Prediction</h2>
+        
+        <!-- Output Section -->
+        {% if output %}
+            <div class="output-container">
+                Prediction Result: {{ output }}
+            </div>
+        {% endif %}
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-container">
+                    <form action="{% url 'predict' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="FL_DATE" class="form-label">Flight Date</label>
+                                <input type="date" class="form-control" id="FL_DATE" name="FL_DATE" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="OP_UNIQUE_CARRIER" class="form-label">Unique Carrier</label>
+                                <input type="text" class="form-control" id="OP_UNIQUE_CARRIER" name="OP_UNIQUE_CARRIER" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="OP_CARRIER" class="form-label">Operating Carrier</label>
+                                <input type="text" class="form-control" id="OP_CARRIER" name="OP_CARRIER" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="TAIL_NUM" class="form-label">Tail Number</label>
+                                <input type="text" class="form-control" id="TAIL_NUM" name="TAIL_NUM" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="OP_CARRIER_FL_NUM" class="form-label">Flight Number</label>
+                                <input type="number" class="form-control" id="OP_CARRIER_FL_NUM" name="OP_CARRIER_FL_NUM" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ORIGIN_AIRPORT_ID" class="form-label">Origin Airport ID</label>
+                                <input type="number" class="form-control" id="ORIGIN_AIRPORT_ID" name="ORIGIN_AIRPORT_ID" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="ORIGIN" class="form-label">Origin Airport</label>
+                                <input type="text" class="form-control" id="ORIGIN" name="ORIGIN" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="DEST_AIRPORT_ID" class="form-label">Destination Airport ID</label>
+                                <input type="number" class="form-control" id="DEST_AIRPORT_ID" name="DEST_AIRPORT_ID" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="DEST" class="form-label">Destination Airport</label>
+                                <input type="text" class="form-control" id="DEST" name="DEST" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="CRS_DEP_TIME" class="form-label">Scheduled Departure Time</label>
+                                <input type="time" class="form-control" id="CRS_DEP_TIME" name="CRS_DEP_TIME" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="DEP_TIME" class="form-label">Actual Departure Time</label>
+                                <input type="time" class="form-control" id="DEP_TIME" name="DEP_TIME">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="TAXI_OUT" class="form-label">Taxi Out Time</label>
+                                <input type="number" class="form-control" id="TAXI_OUT" name="TAXI_OUT">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="DISTANCE" class="form-label">Flight Distance</label>
+                                <input type="number" class="form-control" id="DISTANCE" name="DISTANCE" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Predict</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}
